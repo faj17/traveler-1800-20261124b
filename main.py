@@ -1,12 +1,16 @@
 """One sentence explaining the modern internet to a traveler from 1800.
 
-The whole entry is a single sentence built only from things a person
-from 1800 already knows: a road, a post office, a library, a market
-square, a letter, a book, a song. No word coined after their time is
-used: the road joins those familiar places, anyone may send the words
-of a letter, a book, or a song along it to any town, and hear an
-answer back in the blink of an eye. The script validates the sentence
-and drops it into /output/entry.txt.
+THE 1800 RULE: the sentence must use only words and things a person
+from 1800 already knows. Every content word is something from their
+world: road, post office, library, market square, letter, book, song.
+No word coined after 1800 is allowed anywhere in the sentence — no
+internet, computer, website, email, phone, screen, digital, online,
+or any other post-1800 coinage. The script enforces this with a
+banned-word scan in validate().
+
+THE GATE: the entry is exactly one sentence, 1-200 characters long,
+ending in a single full stop, with no other sentence terminators.
+The script validates the sentence and drops it into /output/entry.txt.
 """
 
 import re
@@ -71,7 +75,9 @@ def main() -> None:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     OUTPUT_FILE.write_text(text, encoding="utf-8")
     print(text)
-    print(f"Wrote {len(text)} chars to {OUTPUT_FILE}")
+    print(
+        f"Wrote {len(text)} chars, {len(text.split())} words to {OUTPUT_FILE}"
+    )
 
 
 if __name__ == "__main__":
