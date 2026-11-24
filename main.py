@@ -40,8 +40,14 @@ BANNED_WORDS = [
 
 
 def validate(text: str) -> str:
-    """Strip and sanity-check the sentence; raise ValueError on bad input."""
-    sentence = text.strip()
+    """Check the sentence exactly as given; raise ValueError on bad input."""
+    if text != text.strip():
+        raise ValueError("sentence must not have leading or trailing whitespace")
+    sentence = text
+    if "\n" in sentence or "\r" in sentence:
+        raise ValueError("sentence must be a single line")
+    if "?" in sentence or "!" in sentence:
+        raise ValueError("sentence must end with a full stop, not '?' or '!'")
     if not MIN_CHARS <= len(sentence) <= MAX_CHARS:
         raise ValueError(
             f"sentence must be {MIN_CHARS}-{MAX_CHARS} chars, "
